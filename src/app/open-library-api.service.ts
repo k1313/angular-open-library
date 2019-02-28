@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
-import { OpenLibrarySearchResponse, OpenLibraryBook, BookCoverURLs } from './open-library-book';
+import { OpenLibrarySearchResponse } from './open-library-book';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -13,7 +13,7 @@ export class OpenLibraryAPIService {
   
   constructor(private http: HttpClient) { }
 
-  search(query: string, limit: number = 5, page: number = 1 ) : Observable<OpenLibrarySearchResponse> {
+  search(query: string, limit: number = 10, page: number = 1 ) : Observable<OpenLibrarySearchResponse> {
     const options = {
       params: new HttpParams()
         .set('q', query)
@@ -24,21 +24,7 @@ export class OpenLibraryAPIService {
       .pipe(catchError(this.handleError));
   }
 
-  getCovers(book: OpenLibraryBook) : OpenLibraryBook {
-    let key: string = '';
-    if (book.cover_i) {
-      key = book.cover_i.toString();
-    } else if (book.isbn) {
-      key = book.isbn[0];
-    }
-    
-    book._covers = {
-      small: `http://covers.openlibrary.org/b/id/${key}-S.jpg`,
-      medium: `http://covers.openlibrary.org/b/id/${key}-M.jpg`,
-      large: `http://covers.openlibrary.org/b/id/${key}-L.jpg`,
-    }
-    return book;
-  }
+
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

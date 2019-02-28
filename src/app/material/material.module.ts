@@ -1,10 +1,12 @@
-import {A11yModule} from '@angular/cdk/a11y';
-import {DragDropModule} from '@angular/cdk/drag-drop';
-import {ScrollingModule} from '@angular/cdk/scrolling';
-import {CdkStepperModule} from '@angular/cdk/stepper';
-import {CdkTableModule} from '@angular/cdk/table';
-import {CdkTreeModule} from '@angular/cdk/tree';
-import {NgModule} from '@angular/core';
+import { A11yModule } from '@angular/cdk/a11y';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { CdkStepperModule } from '@angular/cdk/stepper';
+import { CdkTableModule } from '@angular/cdk/table';
+import { CdkTreeModule } from '@angular/cdk/tree';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import {
   MatAutocompleteModule,
   MatBadgeModule,
@@ -29,7 +31,7 @@ import {
   MatProgressSpinnerModule,
   MatRadioModule,
   MatRippleModule,
-  MatSelectModule,
+  
   MatSidenavModule,
   MatSliderModule,
   MatSlideToggleModule,
@@ -41,8 +43,10 @@ import {
   MatToolbarModule,
   MatTooltipModule,
   MatTreeModule,
+  
 } from '@angular/material';
 
+import {MatSelectModule} from '@angular/material/select'
 @NgModule({
   exports: [
     A11yModule,
@@ -86,6 +90,8 @@ import {
     MatTooltipModule,
     MatTreeModule,
     ScrollingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
-export class MaterialModule {}
+export class MaterialModule { }

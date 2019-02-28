@@ -2,3 +2,6 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 /* C:\Users\k.chernishov\Documents\Angular\books-app\node_modules\@angular\material\prebuilt-themes\deeppurple-amber.css */
+body {
+    height:99%; width:99%;
+}

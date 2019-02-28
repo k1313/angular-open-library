@@ -1,25 +1,14 @@
 <!--The content below is only a placeholder and can be replaced.-->
+<header class="app-header">
+  <mat-toolbar color="primary">
+    <a mat-button routerLink="/">
+      <mat-icon>home</mat-icon>OpenLibrary
+    </a>
+    <a mat-button *ngFor="let link of navLinks" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+      [attr.active]="rla.isActive">{{link.label}}</a>
 
-<mat-toolbar color="primary">
-  <a mat-button routerLink="/"><mat-icon>home</mat-icon>OpenLibrary</a>
-  
-  <a mat-button
-     *ngFor="let link of navLinks"
-     [routerLink]="link.path"
-     routerLinkActive #rla="routerLinkActive"
-     [attr.active]="rla.isActive"
-  >{{link.label}}</a>
-
-</mat-toolbar>
-<!-- 
-<nav mat-tab-nav-bar color="primary">
-  OpenLibrary
-  <a mat-tab-link
-     *ngFor="let link of navLinks"
-     [routerLink]="link.path"
-     routerLinkActive #rla="routerLinkActive"
-     [attr.active]="rla.isActive"
-  >{{link.label}}</a>
-</nav> -->
-
-<router-outlet></router-outlet>
+  </mat-toolbar>
+</header>
+<div class="app-content" fxLayout="column" fxLayoutAlign="start stretch">
+  <router-outlet></router-outlet>
+</div>

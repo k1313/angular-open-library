@@ -1,0 +1,89 @@
+<div class="md-padding" layout="column" layout-fill>
+  <mat-card class="md-padding" layout="row" flex>
+    <div class="table-container">
+
+
+      <table class="example-full-width" cellspacing="0">
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width">
+              <form (submit)="doSearch($event)">
+                <input name="query" matInput placeholder="Search" [(ngModel)]="query">
+              </form>
+            </mat-form-field>
+          </td>
+
+          <td>
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Columns" [formControl]="columnsFormControl" multiple disableRipple
+                (selectionChange)="changeVisibleFields()">
+                <mat-option *ngFor="let column of columns" [value]="column.key">{{column.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+
+          <td>
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Subjects">
+                <mat-option *ngFor="let subject of subjects" [value]="subject">
+                  {{subject}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+
+      <div *ngIf="docs.length == 0; else hasData">
+        <div *ngIf="query.length > 0; else startSearch">
+          no data
+        </div>
+        <ng-template #startSearch>
+          start searching!
+        </ng-template>
+      </div>
+
+      <ng-template #hasData>
+        <table mat-table [dataSource]="docs" class="mat-elevation-z8" style="width: 100%">
+
+          <ng-container matColumnDef="image">
+            <th mat-header-cell *matHeaderCellDef>Image</th>
+            <td mat-cell *matCellDef="let element">
+              <img *ngIf="element._covers.small" [src]="element._covers.medium" />
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="author_name">
+            <th mat-header-cell *matHeaderCellDef>Author</th>
+            <td mat-cell *matCellDef="let element"> {{element.author_name}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef>Title</th>
+            <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="isbn">
+            <th mat-header-cell *matHeaderCellDef>isbn</th>
+            <td mat-cell *matCellDef="let element">
+              <span *ngFor="let i of element.isbn">
+                {{i}}<br />
+              </span>
+
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+        </table>
+
+        <mat-paginator style="position: sticky" (page)="pageEvent($event)" [length]="resultCount"
+          [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+        </mat-paginator>
+
+      </ng-template>
+    </div>
+  </mat-card>
+
+</div>
