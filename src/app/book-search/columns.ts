@@ -1,5 +1,3 @@
-import { dashCaseToCamelCase } from "@angular/compiler/src/util";
-
 export interface ColumnData {
     key: string,
     name: string,
@@ -11,7 +9,9 @@ const storageKey = 'BookSearchTableColumns';
 const columns: ColumnData[] = [
     { key: 'image', name: 'Image', enabled: true },
     { key: 'title', name: 'Title', enabled: true },
-    { key: 'author_name', name: 'Author', enabled: true },
+    { key: 'author_name', name: 'Authors', enabled: true },
+    { key: 'publisher', name: 'Publishers', enabled: true},
+    { key: 'publish_date', name: 'Publish Dates', enabled: true},
     { key: 'isbn', name: 'ISBN', enabled: true },
 ];
 
@@ -33,19 +33,6 @@ export const getColumns = () : ColumnData[] => {
             return m ? {...x, ...m} : x;
         })
     }
-};
-
-
-export const toggleColumn = (key: string) : ColumnData[] => {
-    let data = getColumns();
-    for (let x = 0; x < data.length; x++) {
-        if (data[x].key === key) {
-            data[x].enabled = !data[x].enabled;
-            save(data);
-            break;
-        }
-    }
-    return data;
 };
 
 

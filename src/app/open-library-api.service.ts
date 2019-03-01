@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
-import { OpenLibrarySearchResponse } from './open-library-book';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { OpenLibrarySearchResponse, BookDetails, OpenLibrarySearchResponseWrapper } from './open-library-book';
+import { Observable, throwError, of } from 'rxjs';
+import { catchError, tap, retry, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +10,14 @@ import { catchError } from 'rxjs/operators';
 export class OpenLibraryAPIService {
 
   private searchUrl : string = 'http://openlibrary.org/search.json';
+  private bookUrlPrefix: string = 'https://openlibrary.org/works/';
   
   constructor(private http: HttpClient) { }
 
-  search(query: string, limit: number = 10, page: number = 1 ) : Observable<OpenLibrarySearchResponse> {
+  search(query: string, limit: number = 10, page: number = 1 ) : Observable<OpenLibrarySearchResponseWrapper> {
+    if (query === '') {
+      return of(new OpenLibrarySearchResponseWrapper());
+    }
     const options = {
       params: new HttpParams()
         .set('q', query)
@@ -21,9 +25,18 @@ export class OpenLibraryAPIService {
         .set('limit', limit.toString())
       };
     return this.http.get<OpenLibrarySearchResponse>(this.searchUrl, options)
-      .pipe(catchError(this.handleError));
+      .pipe(
+        retry(3),
+        tap(data => console.log('search results:', data)),
+        catchError(this.handleError),
+        map(x => new OpenLibrarySearchResponseWrapper(x))
+      );
   }
 
+  bookDetails(id: string) : Observable<BookDetails> {
+    const url = `${this.bookUrlPrefix}${id}.json`;
+    return this.http.get<BookDetails>(url).pipe(catchError(this.handleError));
+  }
 
 
   private handleError(error: HttpErrorResponse) {

@@ -8,3 +8,31 @@
     overflow: auto; */
   }
   
+  tr.mat-row.ng-star-inserted {
+    cursor: pointer;
+  }
+
+    
+  tr.mat-row.ng-star-inserted:hover {
+    background: #3f51b511;
+  }
+
+  td.mat-cell {
+    padding: 0 5px;
+  }
+
+  .table-wrap {
+    display: flex;
+  }
+
+  .spinner {
+    background: #ffffff88;
+    display: flex;
+    /* flex-grow: 100; */
+    position: fixed;
+    /* flex-grow: 1; */
+    height: 100%;
+    width: 100%; 
+    align-items: center;
+    justify-content: center;
+  }

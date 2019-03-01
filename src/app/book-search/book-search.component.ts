@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router, NavigationStart, NavigationEnd } from '@angular/router';
-import { Observable } from 'rxjs';
-import { OpenLibraryBook, OpenLibrarySearchResponse } from '../open-library-book';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
+import { OpenLibraryBookWrapper, OpenLibrarySearchResponseWrapper } from '../open-library-book';
 import { OpenLibraryAPIService } from '../open-library-api.service';
 import { filter } from 'rxjs/operators';
-import { getColumns, toggleColumn, ColumnData, updateColumns } from './columns';
+import { getColumns, updateColumns, ColumnData } from './columns';
 import { FormControl } from '@angular/forms';
-import h from './helpers';
+
 import { PageEvent } from '@angular/material';
 
 @Component({
@@ -14,88 +14,88 @@ import { PageEvent } from '@angular/material';
   templateUrl: './book-search.component.html',
   styleUrls: ['./book-search.component.css']
 })
-export class BookSearchComponent implements OnInit {
+export class BookSearchComponent implements OnInit, OnDestroy {
   columnsFormControl = new FormControl();
-  columns: ColumnData[];
+  columns = getColumns();
+  displayedColumns: string[] = getDisplayedColumns(this.columns);
+
   pageSize=10;
   page = 0;
   resultCount = 0;
-
-  query: string = '';
-  
-  displayedColumns: string[];
-  docs : OpenLibraryBook[] = [];
-
+  loading = false;
+  query ='';
+ 
+  docs : OpenLibraryBookWrapper[] = [];
   subjects : string[] = [];
 
-  
-  private navStart: Observable<NavigationStart>;
-  private navEnd: Observable<NavigationEnd>;
+  private subscriptions : Subscription;
 
   constructor(
     private route: ActivatedRoute, 
     private api: OpenLibraryAPIService,
     private router: Router
-  ) {
-    this.navStart = router.events.pipe(filter(e => e instanceof NavigationStart)) as Observable<NavigationStart>;
-    this.navEnd = router.events.pipe(filter(e => e instanceof NavigationEnd)) as Observable<NavigationEnd>
-   }
-
-
+  ) {}
 
   ngOnInit() {
-    this.route.params.subscribe(params => this.query = params['query'] || '');
-    this.performQuery();
-    this.columns = getColumns();
-    this.displayedColumns = h.getDisplayedColumns(this.columns);
-    this.columnsFormControl.setValue(this.displayedColumns);
-    
-    this.navEnd.subscribe(() => {
-      console.log('nav end');
-      this.performQuery();
+    this.route.params.subscribe(params => {
+      this.query = params['query'] || '';
+      this.page = +params['page'] - 1 || 0;
+      this.pageSize = +params['limit'] || +localStorage.getItem('booksPerPage') || 10;
     });
-
     
-
-    this.navStart.subscribe(() => {
-      console.log('nav start');
-    })
-
-    
+    this.columnsFormControl.setValue(this.displayedColumns);    
+    let navEnd = this.router.events.pipe( filter(e => e instanceof NavigationEnd)) as Observable<NavigationEnd>;
+    this.subscriptions = navEnd.subscribe(_ => this.performQuery());
+    this.performQuery();
   }
 
-  toggleColumn(name: string) : void {
-    toggleColumn(name);
-  }
 
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+  }
 
   private performQuery() {
+    this.loading = true;
     this.api.search(this.query, this.pageSize, this.page + 1).subscribe(
-      (response: OpenLibrarySearchResponse) => {
-        this.docs = response.docs.map(obj => h.addCovers(obj) );
-        this.subjects = h.getSubjects(this.docs);
+      (response: OpenLibrarySearchResponseWrapper) => {
+        this.docs = response.docs;
+        this.subjects = response.subjects;
         this.resultCount = response.numFound;
-        console.log(this.resultCount);
+        this.loading = false;
       }
     );
   }
 
+  private viewBookDetails(row) {
+    let s = row.obj.key.split('/');
+    let id = s[s.length - 1];
+    if (id) {
+      this.router.navigateByUrl(`book/${id}`);
+    } else {
+      console.error('bad book id');
+    }
+  }
   
   private pageEvent(pageEvent: PageEvent) {
-    console.log(pageEvent);
-    this.page = pageEvent.pageIndex;
+    let prevSize = this.pageSize;
     this.pageSize = pageEvent.pageSize;
-    this.performQuery();
+    this.page = prevSize == this.pageSize ? pageEvent.pageIndex : 0;
+    if (prevSize !== this.pageSize) {
+      localStorage.setItem('booksPerPage', this.pageSize.toString());
+    }
+    this.router.navigateByUrl(`/search/${this.query}/${this.page+1}/${this.pageSize}`);
   }
 
-  doSearch() {
-    this.router.navigateByUrl(`/search/${this.query}`);
+  private doSearch() {
+    this.router.navigateByUrl(`/search/${this.query}/1/${this.pageSize}`);
   }
 
-  changeVisibleFields() {
+  private changeVisibleFields() {
     this.columns = updateColumns(this.columnsFormControl.value);
-    this.displayedColumns = h.getDisplayedColumns(this.columns);
+    this.displayedColumns = getDisplayedColumns(this.columns);
   }
 }
 
-
+function getDisplayedColumns(data: ColumnData[]): string[] {
+  return data.filter(x => x.enabled).map(x => x.key);
+}

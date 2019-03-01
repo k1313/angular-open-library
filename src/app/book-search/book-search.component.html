@@ -1,6 +1,8 @@
 <div class="md-padding" layout="column" layout-fill>
-  <mat-card class="md-padding" layout="row" flex>
+  <mat-card class="md-padding" layout="row">
+
     <div class="table-container">
+
 
 
       <table class="example-full-width" cellspacing="0">
@@ -33,56 +35,107 @@
           </td>
         </tr>
       </table>
-
-      <div *ngIf="docs.length == 0; else hasData">
-        <div *ngIf="query.length > 0; else startSearch">
-          no data
+      <div class="table-wrap">
+        <div class="spinner" *ngIf="loading">
+          <mat-spinner></mat-spinner>
         </div>
-        <ng-template #startSearch>
-          start searching!
+
+        <div *ngIf="docs.length == 0; else hasData">
+          <div *ngIf="query.length > 0; else startSearch">
+            no data
+          </div>
+          <ng-template #startSearch>
+            start searching!
+          </ng-template>
+        </div>
+
+        <ng-template #nodata>&mdash;</ng-template>
+        <ng-template #hasData>
+          <table mat-table [dataSource]="docs" class="mat-elevation-z8" style="width: 100%">
+
+            <ng-container matColumnDef="image">
+              <th mat-header-cell *matHeaderCellDef>Image</th>
+              <td mat-cell *matCellDef="let element">
+                <img *ngIf="element.covers.small" [src]="element.covers.medium" />
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="author_name">
+              <th mat-header-cell *matHeaderCellDef>Authors</th>
+              <td mat-cell *matCellDef="let element">
+                <span *ngFor="let i of element.obj.author_name">
+                  {{i}}<br />
+                </span>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef>Title</th>
+              <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="publisher">
+              <th mat-header-cell *matHeaderCellDef>Publishers</th>
+              <td mat-cell *matCellDef="let element">
+                <ng-container *ngIf="element.obj.publisher; else nodata">
+                  <ng-container *ngFor="let i of element.obj.publisher.slice(0,10); last as last;">
+                    <span>{{i}}</span><span *ngIf="!last">,</span><br *ngIf="!last" />
+                  </ng-container>
+                  <ng-container *ngIf='element.obj.publisher.length > 10'>
+                    <br />...
+                  </ng-container>
+                </ng-container>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="publish_date">
+              <th mat-header-cell *matHeaderCellDef>Publish Dates</th>
+              <td mat-cell *matCellDef="let element">
+                <ng-container *ngIf="element.obj.publish_date; else nodata">
+                  <ng-container *ngFor="let i of element.obj.publish_date.slice(0,10); last as last;">
+                    <span style="white-space: nowrap">{{i}}</span><span *ngIf="!last">,</span><br *ngIf="!last" />
+                  </ng-container>
+                  <ng-container *ngIf='element.obj.publish_date.length > 10'>
+                    <br />...
+                  </ng-container>
+                </ng-container>
+                
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="isbn">
+              <th mat-header-cell *matHeaderCellDef>ISBN</th>
+              <td mat-cell *matCellDef="let element">
+                <ng-container *ngIf="element.obj.isbn; else nodata">
+                  <ng-container *ngFor="let i of element.obj.isbn.slice(0,10); last as last;">
+                    <span style="white-space: nowrap">{{i}}</span>
+                    <span *ngIf="!last">,</span>
+                    <br *ngIf="!last" />
+                  </ng-container>
+                  <ng-container *ngIf='element.obj.isbn.length > 10'>
+                    <br />...
+                  </ng-container>
+                </ng-container>
+
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="pagination">
+              <td mat-footer-cell *matFooterCellDef colspan="5">
+
+                <mat-paginator (page)="pageEvent($event)" [length]="resultCount" [pageSize]="pageSize"
+                  [pageIndex]="page" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+                </mat-paginator>
+
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="viewBookDetails(row)"></tr>
+            <tr mat-footer-row *matFooterRowDef="['pagination']; sticky: true"></tr>
+          </table>
+
         </ng-template>
       </div>
-
-      <ng-template #hasData>
-        <table mat-table [dataSource]="docs" class="mat-elevation-z8" style="width: 100%">
-
-          <ng-container matColumnDef="image">
-            <th mat-header-cell *matHeaderCellDef>Image</th>
-            <td mat-cell *matCellDef="let element">
-              <img *ngIf="element._covers.small" [src]="element._covers.medium" />
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="author_name">
-            <th mat-header-cell *matHeaderCellDef>Author</th>
-            <td mat-cell *matCellDef="let element"> {{element.author_name}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="title">
-            <th mat-header-cell *matHeaderCellDef>Title</th>
-            <td mat-cell *matCellDef="let element"> {{element.title}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="isbn">
-            <th mat-header-cell *matHeaderCellDef>isbn</th>
-            <td mat-cell *matCellDef="let element">
-              <span *ngFor="let i of element.isbn">
-                {{i}}<br />
-              </span>
-
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-
-        </table>
-
-        <mat-paginator style="position: sticky" (page)="pageEvent($event)" [length]="resultCount"
-          [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
-        </mat-paginator>
-
-      </ng-template>
     </div>
   </mat-card>
 
