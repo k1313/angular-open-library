@@ -6,6 +6,8 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+
 
 import {
   MatAutocompleteModule,
@@ -31,7 +33,7 @@ import {
   MatProgressSpinnerModule,
   MatRadioModule,
   MatRippleModule,
-  
+
   MatSidenavModule,
   MatSliderModule,
   MatSlideToggleModule,
@@ -43,10 +45,11 @@ import {
   MatToolbarModule,
   MatTooltipModule,
   MatTreeModule,
-  
+
+
 } from '@angular/material';
 
-import {MatSelectModule} from '@angular/material/select'
+import { MatSelectModule } from '@angular/material/select'
 @NgModule({
   exports: [
     A11yModule,
@@ -91,7 +94,8 @@ import {MatSelectModule} from '@angular/material/select'
     MatTreeModule,
     ScrollingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
   ]
 })
 export class MaterialModule { }

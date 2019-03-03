@@ -1,6 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+.flag{
+    display:inline-block;
+    width:16px;
+    height:11px;
+    background:url('/assets/flags.png') no-repeat}
+.flag.flag-ru{background-position:-16px 0}
+.flag.flag-us{background-position:0 -11px}
 /* C:\Users\k.chernishov\Documents\Angular\books-app\node_modules\@angular\material\prebuilt-themes\deeppurple-amber.css */
 body {
     height:99%; width:99%;

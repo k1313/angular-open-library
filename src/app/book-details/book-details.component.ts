@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { ActivatedRoute } from '@angular/router';
+import { OpenLibraryAPIService } from '../open-library-api.service';
+import { OpenLibraryBookDetailsWrapper } from '../open-library-book';
+import { MatChipInputEvent } from '@angular/material';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-book-details',
@@ -8,12 +13,87 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BookDetailsComponent implements OnInit {
 
-  bookId:string = ''
+  bookId: string = ''
+  bookDetails: OpenLibraryBookDetailsWrapper;
 
-  constructor(private route: ActivatedRoute) { }
+  //tags
+  tags: string[] = [];
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+
+  constructor(
+    private route: ActivatedRoute, 
+    private api: OpenLibraryAPIService,
+    private translate: TranslateService
+    ) { }
 
   ngOnInit() {
-    this.route.params.subscribe(params => this.bookId= params['id'] || '');
+    this.route.params.subscribe(params => {
+      this.bookId = params['id'] || '';
+      if (this.bookId) {
+        this.api.bookDetails(this.bookId).subscribe(x => {
+          this.bookDetails = x;
+          console.log('x', x);
+        });
+        this.tags = getTags(this.bookId);
+      }
+    });
   }
 
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    if ((value || '').trim()) {
+      this.tags.push(value.trim());
+      this.tags = Array.from(new Set(this.tags));
+      saveTags(this.bookId, this.bookDetails.obj.title, this.tags);
+    }
+
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(tag: string): void {
+    const index = this.tags.indexOf(tag);
+
+    if (index >= 0) {
+      this.tags.splice(index, 1);
+    }
+    saveTags(this.bookId, this.bookDetails.obj.title, this.tags);
+  }
 }
+
+
+interface FavouriteBook {
+  id : string;
+  title: string;
+  tags: string[];
+}
+
+
+function getTags(bookId: string) : string[] {
+  let favourites : FavouriteBook[] = JSON.parse(localStorage.getItem('favourites')) || [];
+  let idx = favourites.findIndex(x => x.id == bookId);
+  return idx > -1 ? favourites[idx].tags : []
+}
+
+function saveTags(bookId: string, title: string, tags: string[]) : void {
+  let favourites : FavouriteBook[] = JSON.parse(localStorage.getItem('favourites')) || [];
+  let idx = favourites.findIndex(x => x.id == bookId);
+  if (idx > -1) {
+    favourites[idx].tags = tags;
+  } else {
+    favourites.push({id: bookId, title, tags});
+  }
+  favourites = favourites.filter(x => x.tags.length > 0);
+  localStorage.setItem(`favourites`, JSON.stringify(favourites));
+}
+
+function allTags() {
+  let favourites : FavouriteBook[] = JSON.parse(localStorage.getItem('favourites')) || [];
+  let all = favourites.reduce( (p,c) => [...p, ...c.tags], []);
+  return Array.from(new Set(all));
+}
+
+

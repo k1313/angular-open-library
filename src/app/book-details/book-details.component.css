@@ -1,0 +1,23 @@
+.book-details-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.book-cover {
+    flex-basis: 300px;
+    padding: 10px;  
+}
+
+.book-details {
+    padding: 10px;
+    flex-grow: 1;
+}
+p.subtitle {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.book-tags {
+    width: 90%;
+}

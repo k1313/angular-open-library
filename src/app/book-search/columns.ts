@@ -7,12 +7,12 @@ export interface ColumnData {
 const storageKey = 'BookSearchTableColumns';
 
 const columns: ColumnData[] = [
-    { key: 'image', name: 'Image', enabled: true },
-    { key: 'title', name: 'Title', enabled: true },
-    { key: 'author_name', name: 'Authors', enabled: true },
-    { key: 'publisher', name: 'Publishers', enabled: true},
-    { key: 'publish_date', name: 'Publish Dates', enabled: true},
-    { key: 'isbn', name: 'ISBN', enabled: true },
+    { key: 'image', name: 'SEARCH.COLS.Image', enabled: true },
+    { key: 'author_name', name: 'SEARCH.COLS.Authors', enabled: true },
+    { key: 'title', name: 'SEARCH.COLS.Title', enabled: true },
+    { key: 'publisher', name: 'SEARCH.COLS.Publishers', enabled: true},
+    { key: 'publish_date', name: 'SEARCH.COLS.PublishDates', enabled: true},
+    { key: 'isbn', name: 'SEARCH.COLS.ISBN', enabled: true },
 ];
 
 

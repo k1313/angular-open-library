@@ -8,6 +8,7 @@ import { getColumns, updateColumns, ColumnData } from './columns';
 import { FormControl } from '@angular/forms';
 
 import { PageEvent } from '@angular/material';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-book-search',
@@ -33,7 +34,8 @@ export class BookSearchComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute, 
     private api: OpenLibraryAPIService,
-    private router: Router
+    private router: Router,
+    public translate: TranslateService
   ) {}
 
   ngOnInit() {
@@ -67,13 +69,10 @@ export class BookSearchComponent implements OnInit, OnDestroy {
   }
 
   private viewBookDetails(row) {
-    let s = row.obj.key.split('/');
-    let id = s[s.length - 1];
-    if (id) {
-      this.router.navigateByUrl(`book/${id}`);
-    } else {
-      console.error('bad book id');
-    }
+    let id = row.olid;
+    
+    this.router.navigateByUrl(`book/${id}`);
+
   }
   
   private pageEvent(pageEvent: PageEvent) {

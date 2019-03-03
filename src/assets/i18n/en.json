@@ -1,0 +1,29 @@
+{
+    "APP": {
+        "TITLE": "OpenLibrary",
+        "HOME" : "Home",
+        "FAVOURITES": "Favoutites"
+    },
+    "SEARCH": {
+        "SEARCH": "Search",
+        "COLUMNS": "Columns",
+        "SUBJECTS": "Subjects",
+        "NODATA": "No data",
+        "START_SEARCH": "Start Search!!!",
+        "COLS": {
+            "Image": "Image",
+            "Authors": "Authors",
+            "Title": "Title",
+            "Publishers": "Publishers",
+            "PublishDates": "Publish Dates",
+            "ISBN": "ISBN"
+        }
+    },
+    "DETAILS": {
+        "ADD_TAG": "New tag..."
+    },
+    "FAV": {
+        "SELECT_SOME_TAGS": "Select Some Tags!!!",
+        "TAGS" : "Tags"
+    }
+}

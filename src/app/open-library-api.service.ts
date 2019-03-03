@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
-import { OpenLibrarySearchResponse, BookDetails, OpenLibrarySearchResponseWrapper } from './open-library-book';
+import { OpenLibrarySearchResponse, BookDetails, OpenLibrarySearchResponseWrapper, OpenLibraryBookDetailsWrapper } from './open-library-book';
 import { Observable, throwError, of } from 'rxjs';
 import { catchError, tap, retry, map } from 'rxjs/operators';
 
@@ -9,8 +9,8 @@ import { catchError, tap, retry, map } from 'rxjs/operators';
 })
 export class OpenLibraryAPIService {
 
-  private searchUrl : string = 'http://openlibrary.org/search.json';
-  private bookUrlPrefix: string = 'https://openlibrary.org/works/';
+  private searchUrl : string = 'https://openlibrary.org/search.json';
+  private bookDetailsUrl: string = 'https://openlibrary.org/api/books';
   
   constructor(private http: HttpClient) { }
 
@@ -33,9 +33,21 @@ export class OpenLibraryAPIService {
       );
   }
 
-  bookDetails(id: string) : Observable<BookDetails> {
-    const url = `${this.bookUrlPrefix}${id}.json`;
-    return this.http.get<BookDetails>(url).pipe(catchError(this.handleError));
+  bookDetails(id: string) : Observable<OpenLibraryBookDetailsWrapper> {
+    let bookId = `OLID:${id}`;
+    const options = {
+      params: new HttpParams()
+        .set('bibkeys', bookId)
+        .set('jscmd', 'details')
+        .set('format', 'json')
+    };
+    return this.http.get<any>(this.bookDetailsUrl, options)
+      .pipe(
+        map(response => {
+          return new OpenLibraryBookDetailsWrapper(response[bookId]['details']) ;
+        }),
+        catchError(this.handleError)
+      );
   }
 
 

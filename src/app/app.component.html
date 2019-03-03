@@ -2,13 +2,16 @@
 <header class="app-header">
   <mat-toolbar color="primary">
     <a mat-button routerLink="/">
-      <mat-icon>home</mat-icon>OpenLibrary
+      <mat-icon>home</mat-icon>{{ 'APP.TITLE' | translate}}
     </a>
     <a mat-button *ngFor="let link of navLinks" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
-      [attr.active]="rla.isActive">{{link.label}}</a>
-
+      [attr.active]="rla.isActive">{{link.label | translate}}</a>
+      <span style="flex-grow: 1"></span>
+      <img src="/assets/blank.gif" class="flag flag-ru" alt="Russian" (click)="setLang('ru')" />
+      <img src="/assets/blank.gif" class="flag flag-us" alt="English" (click)="setLang('en')" />
   </mat-toolbar>
 </header>
 <div class="app-content" fxLayout="column" fxLayoutAlign="start stretch">
+    
   <router-outlet></router-outlet>
 </div>

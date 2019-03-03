@@ -1,3 +1,50 @@
-<p>
-  book-details works! {{bookId}}
-</p>
+<mat-card class="md-padding book-details-container ">
+  <ng-container *ngIf='bookDetails as b'>
+    <div class="book-cover">
+      <img [src]=b.cover />
+    </div>
+    <div class="book-details">
+      <h1>{{b.obj.title}}</h1>
+      <p class="subtitle">{{b.obj.subtitle}}</p>
+      <p class="authors">By
+        <span *ngFor="let author of b.obj.authors">{{author.name}}</span>
+      </p>
+      <ng-container *ngIf="b.obj.publish_date as d">
+        <p>Published <strong>{{d}}</strong>
+          <ng-container *ngIf="b.obj.publishers">
+            by
+            <ng-container *ngFor="let p of b.obj.publishers; last as last">
+              <span>{{p}}</span><span *ngIf="!last">, </span>
+            </ng-container>
+          </ng-container>
+        </p>
+      </ng-container>
+      <ng-container *ngIf="b.obj.weight as w">
+        <p>Weight: {{w}}</p>
+      </ng-container>
+
+      <p *ngIf="b.google">
+        Google Books: <a target="blank" [href]="b.google">{{b.isbn}}</a>
+      </p>
+      <p *ngIf="b.amazon">
+        Amazon: <a target="blank" [href]="b.amazon">{{b.isbn}}</a>
+      </p>
+
+
+      <mat-form-field class="book-tags">
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let tag of tags" [selectable]="true" [removable]="true"
+            (removed)="remove(tag)">
+            {{tag}}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="{{ 'DETAILS.ADD_TAG' | translate }}" [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+      </mat-form-field>
+    </div>
+
+
+  </ng-container>
+</mat-card>

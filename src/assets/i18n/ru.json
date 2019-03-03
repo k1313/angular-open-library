@@ -1,0 +1,29 @@
+{
+    "APP": {
+        "TITLE": "OpenLibrary",
+        "HOME" : "Домой",
+        "FAVOURITES": "Избранное"
+    },
+    "SEARCH": {
+        "SEARCH": "Искать",
+        "COLUMNS": "Столбцы",
+        "SUBJECTS": "Тематика",
+        "NODATA": "Нет данных",
+        "START_SEARCH": "Введите что искать",
+        "COLS": {
+            "Image": "Картинка",
+            "Authors": "Авторы",
+            "Title": "Название",
+            "Publishers": "Издатели",
+            "PublishDates": "Даты издания",
+            "ISBN": "ISNB"
+        }
+    },
+    "DETAILS": {
+        "ADD_TAG": "Добавить тэг..."
+    },
+    "FAV": {
+        "SELECT_SOME_TAGS": "Выберите теги для поиска!!!",
+        "TAGS" : "Теги"
+    }
+}
