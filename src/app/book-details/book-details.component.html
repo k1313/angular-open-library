@@ -1,7 +1,7 @@
 <mat-card class="md-padding book-details-container ">
   <ng-container *ngIf='bookDetails as b'>
     <div class="book-cover">
-      <img [src]=b.cover />
+      <img *ngIf="b.cover" [src]=b.cover />
     </div>
     <div class="book-details">
       <h1>{{b.obj.title}}</h1>
