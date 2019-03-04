@@ -14,10 +14,11 @@ import {
   MatTableModule,
   MatToolbarModule,
   MatTooltipModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatSelectModule
 } from '@angular/material';
 
-import { MatSelectModule } from '@angular/material/select'
+
 @NgModule({
   exports: [
     CommonModule,
