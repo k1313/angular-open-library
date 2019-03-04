@@ -7,8 +7,8 @@
     <a mat-button *ngFor="let link of navLinks" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
       [attr.active]="rla.isActive">{{link.label | translate}}</a>
       <span style="flex-grow: 1"></span>
-      <img src="/assets/blank.gif" class="flag flag-ru" alt="Russian" (click)="setLang('ru')" />
-      <img src="/assets/blank.gif" class="flag flag-us" alt="English" (click)="setLang('en')" />
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAgFAAEQCggAOw==" class="flag flag-ru" alt="Russian" (click)="setLang('ru')" />
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAgFAAEQCggAOw==" class="flag flag-us" alt="English" (click)="setLang('en')" />
   </mat-toolbar>
 </header>
 <div class="app-content" fxLayout="column" fxLayoutAlign="start stretch">
