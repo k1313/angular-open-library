@@ -6,7 +6,7 @@ import { BookSearchComponent } from './book-search.component';
 @Injectable({
   providedIn: 'root'
 })
-class Ttt implements CanActivate {
+export class SearchRedirectGuard implements CanActivate {
   constructor(private router: Router) { }
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     let q = next.params.query || '';
@@ -16,9 +16,9 @@ class Ttt implements CanActivate {
   }
 }
 
-const routes: Routes = [
+export const routes: Routes = [
   { 'path': '', component: BookSearchComponent },
-  { 'path': ':query', 'canActivate' : [Ttt] },
+  { 'path': ':query', 'canActivate' : [SearchRedirectGuard] },
   { 'path': ':query/:page/:limit', component: BookSearchComponent }
 ];
 

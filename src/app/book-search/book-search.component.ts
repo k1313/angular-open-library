@@ -56,7 +56,7 @@ export class BookSearchComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  private performQuery() {
+  performQuery() {
     this.loading = true;
     this.api.search(this.query, this.pageSize, this.page + 1).subscribe(
       (response: OpenLibrarySearchResponseWrapper) => {
@@ -68,14 +68,14 @@ export class BookSearchComponent implements OnInit, OnDestroy {
     );
   }
 
-  private viewBookDetails(row) {
+  viewBookDetails(row) {
     let id = row.olid;
     
     this.router.navigateByUrl(`book/${id}`);
 
   }
   
-  private pageEvent(pageEvent: PageEvent) {
+  pageEvent(pageEvent: PageEvent) {
     let prevSize = this.pageSize;
     this.pageSize = pageEvent.pageSize;
     this.page = prevSize == this.pageSize ? pageEvent.pageIndex : 0;
@@ -85,11 +85,11 @@ export class BookSearchComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl(`/search/${this.query}/${this.page+1}/${this.pageSize}`);
   }
 
-  private doSearch() {
+  doSearch() {
     this.router.navigateByUrl(`/search/${this.query}/1/${this.pageSize}`);
   }
 
-  private changeVisibleFields() {
+  changeVisibleFields() {
     this.columns = updateColumns(this.columnsFormControl.value);
     this.displayedColumns = getDisplayedColumns(this.columns);
   }
