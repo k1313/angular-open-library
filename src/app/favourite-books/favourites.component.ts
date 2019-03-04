@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
+import { FavouriteBook, allTags, search } from '../tags';
 
 @Component({
   selector: 'app-favourites',
@@ -27,28 +28,4 @@ export class FavouritesComponent implements OnInit {
     localStorage.setItem('selected-tags', JSON.stringify(this.tagsSelected));
   }
 
-}
-
-interface FavouriteBook {
-  id : string;
-  title: string;
-  tags: string[];
-}
-
-function allTags() : string[] {
-  let favourites : FavouriteBook[] = JSON.parse(localStorage.getItem('favourites')) || [];
-  let all = favourites.reduce( (p,c) => [...p, ...c.tags], []);
-  return Array.from(new Set(all));
-}
-
-function search(tags: string[]) : FavouriteBook[] {
-  let favourites : FavouriteBook[] = JSON.parse(localStorage.getItem('favourites')) || [];
-  return favourites.filter(x => {
-    for (let t of tags) {
-      if (x.tags.indexOf(t) > -1) {
-        return true;
-      }
-    }
-    return false;
-  })
 }

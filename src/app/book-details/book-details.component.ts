@@ -5,6 +5,7 @@ import { OpenLibraryAPIService } from '../open-library-api.service';
 import { OpenLibraryBookDetailsWrapper } from '../open-library-book';
 import { MatChipInputEvent } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
+import { getTags, saveTags } from '../tags';
 
 @Component({
   selector: 'app-book-details',
@@ -21,10 +22,10 @@ export class BookDetailsComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   constructor(
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private api: OpenLibraryAPIService,
     private translate: TranslateService
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -63,37 +64,3 @@ export class BookDetailsComponent implements OnInit {
     saveTags(this.bookId, this.bookDetails.obj.title, this.tags);
   }
 }
-
-
-interface FavouriteBook {
-  id : string;
-  title: string;
-  tags: string[];
-}
-
-
-function getTags(bookId: string) : string[] {
-  let favourites : FavouriteBook[] = JSON.parse(localStorage.getItem('favourites')) || [];
-  let idx = favourites.findIndex(x => x.id == bookId);
-  return idx > -1 ? favourites[idx].tags : []
-}
-
-function saveTags(bookId: string, title: string, tags: string[]) : void {
-  let favourites : FavouriteBook[] = JSON.parse(localStorage.getItem('favourites')) || [];
-  let idx = favourites.findIndex(x => x.id == bookId);
-  if (idx > -1) {
-    favourites[idx].tags = tags;
-  } else {
-    favourites.push({id: bookId, title, tags});
-  }
-  favourites = favourites.filter(x => x.tags.length > 0);
-  localStorage.setItem(`favourites`, JSON.stringify(favourites));
-}
-
-function allTags() {
-  let favourites : FavouriteBook[] = JSON.parse(localStorage.getItem('favourites')) || [];
-  let all = favourites.reduce( (p,c) => [...p, ...c.tags], []);
-  return Array.from(new Set(all));
-}
-
-

@@ -2,7 +2,7 @@
     "APP": {
         "TITLE": "OpenLibrary",
         "HOME" : "Home",
-        "FAVOURITES": "Favoutites"
+        "FAVOURITES": "Favourites"
     },
     "SEARCH": {
         "SEARCH": "Search",
