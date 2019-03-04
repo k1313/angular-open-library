@@ -69,9 +69,9 @@ function getCovers(obj: OpenLibraryBook) {
         key = obj.isbn[0];
     }
     return {
-        small: `http://covers.openlibrary.org/b/id/${key}-S.jpg`,
-        medium: `http://covers.openlibrary.org/b/id/${key}-M.jpg`,
-        large: `http://covers.openlibrary.org/b/id/${key}-L.jpg`,
+        small: `https://covers.openlibrary.org/b/id/${key}-S.jpg`,
+        medium: `https://covers.openlibrary.org/b/id/${key}-M.jpg`,
+        large: `https://covers.openlibrary.org/b/id/${key}-L.jpg`,
     };
 }
 
@@ -148,7 +148,7 @@ export class OpenLibraryBookDetailsWrapper {
     }
 
     get google(): string | null {
-        return `http://books.google.com/books?vid=ISBN${this.isbn}`;
+        return `https://books.google.com/books?vid=ISBN${this.isbn}`;
     }
 
     get cover(): string | null {
@@ -159,7 +159,7 @@ export class OpenLibraryBookDetailsWrapper {
             key = this.isbn ? this.isbn : null
         }
         return key
-            ? `http://covers.openlibrary.org/b/id/${key}-L.jpg`
+            ? `https://covers.openlibrary.org/b/id/${key}-L.jpg`
             : null;
     }
 }
