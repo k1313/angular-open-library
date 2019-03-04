@@ -31,13 +31,6 @@
           Amazon: <a target="blank" [href]="b.amazon">{{b.isbn}}</a>
         </p>
       </ng-container>
-      <p *ngIf="b.google">
-      
-      </p>
-      <p *ngIf="b.amazon">
-        
-      </p>
-
 
       <mat-form-field class="book-tags">
         <mat-chip-list #chipList>
@@ -52,7 +45,5 @@
         </mat-chip-list>
       </mat-form-field>
     </div>
-
-
   </ng-container>
 </mat-card>
