@@ -17,6 +17,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class BookSearchComponent implements OnInit, OnDestroy {
   columnsFormControl = new FormControl();
+  subjectsFormControl = new FormControl();
   columns = getColumns();
   displayedColumns: string[] = getDisplayedColumns(this.columns);
 
@@ -51,6 +52,14 @@ export class BookSearchComponent implements OnInit, OnDestroy {
     this.performQuery();
   }
 
+  searchSubjects() {
+    const subj = this.subjectsFormControl.value;
+    let subjQuery = encodeURIComponent(subj).replace(/[!'()*]/g, (c) => '%' + c.charCodeAt(0).toString(16));;
+    
+    let url = `/search/subject:${subjQuery}/1/${this.pageSize}`;
+    console.log(url);
+    this.router.navigateByUrl(url);
+  }
 
   ngOnDestroy() {
     this.subscriptions.unsubscribe();

@@ -4,7 +4,7 @@
       <table class="example-full-width" cellspacing="0">
         <tr>
           <td>
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="full-width">
               <form (submit)="doSearch()">
                 <input name="query" matInput placeholder="{{'SEARCH.SEARCH' | translate}}" [(ngModel)]="query">
               </form>
@@ -12,7 +12,7 @@
           </td>
 
           <td>
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="full-width">
               <mat-select placeholder="{{'SEARCH.COLUMNS' | translate}}"  [formControl]="columnsFormControl" multiple disableRipple
                 (selectionChange)="changeVisibleFields()">
                 <mat-option *ngFor="let column of columns" [value]="column.key">{{column.name | translate}}</mat-option>
@@ -21,8 +21,8 @@
           </td>
 
           <td>
-            <mat-form-field class="example-full-width">
-              <mat-select placeholder="{{'SEARCH.SUBJECTS' | translate}}">
+            <mat-form-field class="full-width">
+              <mat-select placeholder="{{'SEARCH.SUBJECTS' | translate}}"  [formControl]="subjectsFormControl" (selectionChange)="searchSubjects()">
                 <mat-option *ngFor="let subject of subjects" [value]="subject">
                   {{subject}}
                 </mat-option>

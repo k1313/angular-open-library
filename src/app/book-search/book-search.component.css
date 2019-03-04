@@ -28,11 +28,12 @@
   .spinner {
     background: #ffffff88;
     display: flex;
-    /* flex-grow: 100; */
     position: fixed;
-    /* flex-grow: 1; */
     height: 100%;
     width: 100%; 
     align-items: center;
     justify-content: center;
+  }
+  .full-width {
+    width: 95%;
   }
