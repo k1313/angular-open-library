@@ -23,11 +23,19 @@
         <p>Weight: {{w}}</p>
       </ng-container>
 
+      <ng-container *ngIf="b.isbn">
+        <p>
+          Google Books: <a target="blank" [href]="b.google">{{b.isbn}}</a>
+        </p>
+        <p>
+          Amazon: <a target="blank" [href]="b.amazon">{{b.isbn}}</a>
+        </p>
+      </ng-container>
       <p *ngIf="b.google">
-        Google Books: <a target="blank" [href]="b.google">{{b.isbn}}</a>
+      
       </p>
       <p *ngIf="b.amazon">
-        Amazon: <a target="blank" [href]="b.amazon">{{b.isbn}}</a>
+        
       </p>
 
 
