@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { BookDetailsRoutingModule } from './book-details-routing.module';
 import { BookDetailsComponent } from './book-details.component';
@@ -9,9 +8,8 @@ import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
   declarations: [BookDetailsComponent],
   imports: [
-    CommonModule,
+    SharedModule,    
     BookDetailsRoutingModule,
-    SharedModule,
     TranslateModule.forChild()
   ]
 })

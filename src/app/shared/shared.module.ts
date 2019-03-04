@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { CommonModule } from '@angular/common';
 import {
   MatButtonModule,
   MatCardModule,
@@ -20,6 +20,7 @@ import {
 import { MatSelectModule } from '@angular/material/select'
 @NgModule({
   exports: [
+    CommonModule,
     MatButtonModule,
     MatCardModule,
     MatChipsModule,

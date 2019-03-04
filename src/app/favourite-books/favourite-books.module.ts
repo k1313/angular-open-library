@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { SharedModule } from '../shared/shared.module';
 import { FavouriteBooksRoutingModule } from './favourite-books-routing.module';
@@ -9,9 +8,8 @@ import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
   declarations: [FavouritesComponent],
   imports: [
-    CommonModule,
-    FavouriteBooksRoutingModule,
     SharedModule,
+    FavouriteBooksRoutingModule,
     TranslateModule.forChild()
   ]
 })
