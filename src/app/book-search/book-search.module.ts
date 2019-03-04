@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { BookSearchRoutingModule } from './book-search-routing.module';
 import { BookSearchComponent } from './book-search.component';
-import { MaterialModule } from '../material/material.module';
+import { SharedModule } from '../shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
@@ -11,7 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [
     CommonModule,
     BookSearchRoutingModule,
-    MaterialModule,
+    SharedModule,
     TranslateModule.forChild()
   ]
 })

@@ -1,5 +1,4 @@
 import { _MatChipListMixinBase } from '@angular/material';
-import { strictEqual } from 'assert';
 
 export interface OpenLibraryBook {
     author_name: string;

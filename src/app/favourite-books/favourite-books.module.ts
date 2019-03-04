@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MaterialModule } from '../material/material.module';
+import { SharedModule } from '../shared/shared.module';
 import { FavouriteBooksRoutingModule } from './favourite-books-routing.module';
 import { FavouritesComponent } from './favourites.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -11,7 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [
     CommonModule,
     FavouriteBooksRoutingModule,
-    MaterialModule,
+    SharedModule,
     TranslateModule.forChild()
   ]
 })
