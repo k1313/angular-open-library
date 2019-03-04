@@ -53,12 +53,9 @@ export class BookSearchComponent implements OnInit, OnDestroy {
   }
 
   searchSubjects() {
-    const subj = this.subjectsFormControl.value;
-    let subjQuery = encodeURIComponent(subj).replace(/[!'()*]/g, (c) => '%' + c.charCodeAt(0).toString(16));;
-    
-    let url = `/search/subject:${subjQuery}/1/${this.pageSize}`;
-    console.log(url);
-    this.router.navigateByUrl(url);
+    this.query = this.subjectsFormControl.value;
+
+    this.router.navigateByUrl(`/search/subject:${this.q}/1/${this.pageSize}`);
   }
 
   ngOnDestroy() {
@@ -67,6 +64,7 @@ export class BookSearchComponent implements OnInit, OnDestroy {
 
   performQuery() {
     this.loading = true;
+    
     this.api.search(this.query, this.pageSize, this.page + 1).subscribe(
       (response: OpenLibrarySearchResponseWrapper) => {
         this.docs = response.docs;
@@ -81,7 +79,10 @@ export class BookSearchComponent implements OnInit, OnDestroy {
     let id = row.olid;
     
     this.router.navigateByUrl(`book/${id}`);
+  }
 
+  private get q() : string {
+    return encodeURIComponent(this.query).replace(/[!'()*]/g, (c) => '%' + c.charCodeAt(0).toString(16));
   }
   
   pageEvent(pageEvent: PageEvent) {
@@ -91,11 +92,11 @@ export class BookSearchComponent implements OnInit, OnDestroy {
     if (prevSize !== this.pageSize) {
       localStorage.setItem('booksPerPage', this.pageSize.toString());
     }
-    this.router.navigateByUrl(`/search/${this.query}/${this.page+1}/${this.pageSize}`);
+    this.router.navigateByUrl(`/search/${this.q}/${this.page+1}/${this.pageSize}`);
   }
 
   doSearch() {
-    this.router.navigateByUrl(`/search/${this.query}/1/${this.pageSize}`);
+    this.router.navigateByUrl(`/search/${this.q}/1/${this.pageSize}`);
   }
 
   changeVisibleFields() {
