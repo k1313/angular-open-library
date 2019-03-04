@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { FavouriteBook, allTags, search } from '../tags';
 
@@ -10,22 +9,48 @@ import { FavouriteBook, allTags, search } from '../tags';
 })
 export class FavouritesComponent implements OnInit {
   tagsSelected: string[] = [];
-  tags : string[] = allTags();
-  tagsFormControl = new FormControl();
+  allTags : string[] = allTags();
+  tags : Tag[] = [];
+  
 
   founded: FavouriteBook[] = [];
   constructor(public translate: TranslateService) { }
 
+  tagSelected(tag: string) {
+    return this.tagsSelected.indexOf(tag) > -1;
+  }
+
   ngOnInit() {
     this.tagsSelected = JSON.parse(localStorage.getItem('selected-tags')) || [];
-    this.tagsFormControl.setValue(this.tagsSelected);
     this.founded = search(this.tagsSelected);
+    this.updateTags();
   }
 
-  tagsChanged() {
-    this.tagsSelected = this.tagsFormControl.value;
-    this.founded = search(this.tagsSelected);
-    localStorage.setItem('selected-tags', JSON.stringify(this.tagsSelected));
+  updateTags() : void {
+    this.tags = this.allTags.map( x => {
+      return {
+        selected: this.tagsSelected.indexOf(x) > -1,
+        name: x
+      }
+    });
   }
 
+  toggleTag(tag: string) : void {
+      let idx = this.tagsSelected.indexOf(tag);
+      if (idx > -1) {
+        this.tagsSelected = this.tagsSelected.filter(x => x !== tag);
+      } else {
+        this.tagsSelected.push(tag);
+      }
+      this.founded = search(this.tagsSelected);
+      localStorage.setItem('selected-tags', JSON.stringify(this.tagsSelected));
+      this.updateTags();
+  
+    }
+
+}
+
+interface Tag {
+  selected: boolean;
+  name: string;
 }

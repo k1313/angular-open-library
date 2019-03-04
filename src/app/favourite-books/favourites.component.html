@@ -1,10 +1,7 @@
 <mat-card>
-  <mat-form-field class="full-width">
-    <mat-select placeholder="{{ 'FAV.TAGS' | translate}}" [formControl]="tagsFormControl" multiple disableRipple
-      (selectionChange)="tagsChanged()">
-      <mat-option *ngFor="let tag of tags" [value]="tag">{{tag}}</mat-option>
-    </mat-select>
-  </mat-form-field>
+  <mat-chip-list>
+    <mat-chip *ngFor="let tag of tags" [selected]="tag.selected" (click)="toggleTag(tag.name)">{{tag.name}}</mat-chip>
+  </mat-chip-list>
 </mat-card>
 <mat-card>
   <ng-container *ngIf="founded.length > 0; else selectTags">
@@ -13,7 +10,6 @@
         <ng-container *ngFor="let t of book.tags; last as last">
             <span>{{t}}</span><span *ngIf="!last">, </span>
         </ng-container>
-        
       )
     </p>
   </ng-container>
