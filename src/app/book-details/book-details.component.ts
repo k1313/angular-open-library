@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { ENTER } from '@angular/cdk/keycodes';
 import { ActivatedRoute } from '@angular/router';
 import { OpenLibraryAPIService } from '../open-library-api.service';
 import { OpenLibraryBookDetailsWrapper } from '../open-library-book';
@@ -19,7 +19,7 @@ export class BookDetailsComponent implements OnInit {
 
   //tags
   tags: string[] = [];
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  readonly separatorKeysCodes: number[] = [ENTER];
 
   constructor(
     private route: ActivatedRoute,
