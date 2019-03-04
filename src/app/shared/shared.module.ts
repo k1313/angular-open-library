@@ -14,7 +14,7 @@ import {
   MatTableModule,
   MatToolbarModule,
   MatTooltipModule,
-
+  MatFormFieldModule
 } from '@angular/material';
 
 import { MatSelectModule } from '@angular/material/select'
@@ -34,6 +34,7 @@ import { MatSelectModule } from '@angular/material/select'
     MatTableModule,
     MatToolbarModule,
     MatTooltipModule,
+    MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
   ]
