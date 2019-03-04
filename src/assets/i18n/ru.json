@@ -17,6 +17,14 @@
             "Publishers": "Издатели",
             "PublishDates": "Даты издания",
             "ISBN": "ISNB"
+        },
+        "PAGER": {
+            "ITEMS_PER_PAGE": "Показывать на странице",
+            "FIRST_PAGE": "Первая страница",
+            "LAST_PAGE" : "Последняя страница",
+            "NEXT_PAGE" : "Следующая страница",
+            "PREV_PAGE" : "Предыдущая страница",
+            "OF" : "из"
         }
     },
     "DETAILS": {

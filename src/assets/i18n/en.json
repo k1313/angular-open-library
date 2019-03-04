@@ -17,6 +17,14 @@
             "Publishers": "Publishers",
             "PublishDates": "Publish Dates",
             "ISBN": "ISBN"
+        },
+        "PAGER": {
+            "ITEMS_PER_PAGE": "Items per page",
+            "FIRST_PAGE": "First Page",
+            "LAST_PAGE" : "Last Page",
+            "NEXT_PAGE" : "Next Page",
+            "PREV_PAGE" : "Previous Page",
+            "OF" : "of"
         }
     },
     "DETAILS": {

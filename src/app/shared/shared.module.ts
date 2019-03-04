@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MatPaginationIntlService } from './paginator-i18';
+
 import {
   MatButtonModule,
   MatCardModule,
@@ -15,7 +17,8 @@ import {
   MatToolbarModule,
   MatTooltipModule,
   MatFormFieldModule,
-  MatSelectModule
+  MatSelectModule,
+  MatPaginatorIntl
 } from '@angular/material';
 
 
@@ -38,6 +41,8 @@ import {
     MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
-  ]
+  ],
+  
+  providers:[{ provide: MatPaginatorIntl, useClass: MatPaginationIntlService}]
 })
 export class SharedModule { }
