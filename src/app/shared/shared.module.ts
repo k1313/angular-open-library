@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatPaginationIntlService } from './paginator-i18';
+import { LayoutModule } from '@angular/cdk/layout'
 
 import {
   MatButtonModule,
@@ -18,13 +19,15 @@ import {
   MatTooltipModule,
   MatFormFieldModule,
   MatSelectModule,
-  MatPaginatorIntl
+  MatPaginatorIntl,
+  MatExpansionModule,
 } from '@angular/material';
 
 
 @NgModule({
   exports: [
     CommonModule,
+    MatExpansionModule,
     MatButtonModule,
     MatCardModule,
     MatChipsModule,
@@ -41,8 +44,9 @@ import {
     MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
+    LayoutModule
   ],
-  
-  providers:[{ provide: MatPaginatorIntl, useClass: MatPaginationIntlService}]
+
+  providers: [{ provide: MatPaginatorIntl, useClass: MatPaginationIntlService }]
 })
 export class SharedModule { }

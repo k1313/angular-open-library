@@ -1,17 +1,62 @@
-<!--The content below is only a placeholder and can be replaced.-->
 <header class="app-header">
+  <ng-container *ngIf="bigPanel; then tmplBigPanel; else tmplSmallPanel"></ng-container>
+</header>
+<div class="app-content" fxLayout="column" fxLayoutAlign="start stretch">
+  <router-outlet></router-outlet>
+</div>
+
+
+<!-- big panel -->
+<ng-template #tmplBigPanel>
   <mat-toolbar color="primary">
     <a mat-button routerLink="/">
       <mat-icon>home</mat-icon>{{ 'APP.TITLE' | translate}}
     </a>
     <a mat-button *ngFor="let link of navLinks" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
       [attr.active]="rla.isActive">{{link.label | translate}}</a>
-      <span style="flex-grow: 1"></span>
-      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAgFAAEQCggAOw==" class="flag flag-ru" alt="Russian" (click)="setLang('ru')" />
-      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAgFAAEQCggAOw==" class="flag flag-us" alt="English" (click)="setLang('en')" />
+    <span style="flex-grow: 1"></span>
+    <ng-container [ngTemplateOutlet]="flags"></ng-container>
   </mat-toolbar>
-</header>
-<div class="app-content" fxLayout="column" fxLayoutAlign="start stretch">
+</ng-template>
+
+<!-- small panel -->
+<ng-template #tmplSmallPanel>
+  <mat-toolbar color="primary">
+    <ng-container>
+        <mat-toolbar-row>
+            <a mat-button routerLink="/">
+              <mat-icon>home</mat-icon>{{ 'APP.TITLE' | translate}}
+            </a>
+            <span style="flex: 1 1 auto"></span>
+            <button mat-icon-button (click)="toggleMenu()">
+              <mat-icon>menu</mat-icon>
+            </button>
+          </mat-toolbar-row>
+    </ng-container>
+    <ng-container>
+        <ng-container *ngIf="!menuCollapsed; then expandedMenu"></ng-container>
+      </ng-container>
     
-  <router-outlet></router-outlet>
-</div>
+  </mat-toolbar>
+</ng-template>
+
+
+<!-- menu expanded -->
+<ng-template #expandedMenu>
+  <mat-toolbar-row *ngFor="let link of navLinks">
+    <a mat-button [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+      [attr.active]="rla.isActive">{{link.label | translate}}</a>
+  </mat-toolbar-row>
+  <mat-toolbar-row>
+    <ng-container [ngTemplateOutlet]="flags"></ng-container>
+  </mat-toolbar-row>
+</ng-template>
+
+<!-- flags -->
+<ng-template #flags>
+  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAgFAAEQCggAOw==" class="flag flag-ru"
+    alt="Russian" (click)="setLang('ru')" />
+  &nbsp;
+  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAgFAAEQCggAOw==" class="flag flag-us"
+    alt="English" (click)="setLang('en')" />
+</ng-template>
