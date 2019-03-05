@@ -42,9 +42,8 @@
 
 <!-- menu expanded -->
 <ng-template #expandedMenu>
-  <mat-toolbar-row @menuItem *ngFor="let link of navLinks" class="row-visible">
-    <a mat-button [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
-      [attr.active]="rla.isActive">{{link.label | translate}}</a>
+  <mat-toolbar-row @menuItem *ngFor="let link of navLinks"  routerLinkActive #rla="routerLinkActive" class="row-visible">
+    <a mat-button [routerLink]="link.path" [ngClass]="{'row-active': rla.isActive}">{{link.label | translate}}</a>
   </mat-toolbar-row>
   <mat-toolbar-row @menuItem class="row-visible">
     <ng-container [ngTemplateOutlet]="lang"></ng-container>

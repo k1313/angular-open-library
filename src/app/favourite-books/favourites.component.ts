@@ -11,9 +11,8 @@ export class FavouritesComponent implements OnInit {
   tagsSelected: string[] = [];
   allTags : string[] = allTags();
   tags : Tag[] = [];
-  
-
   founded: FavouriteBook[] = [];
+
   constructor(public translate: TranslateService) { }
 
   tagSelected(tag: string) {
@@ -45,9 +44,7 @@ export class FavouritesComponent implements OnInit {
       this.founded = search(this.tagsSelected);
       localStorage.setItem('selected-tags', JSON.stringify(this.tagsSelected));
       this.updateTags();
-  
     }
-
 }
 
 interface Tag {

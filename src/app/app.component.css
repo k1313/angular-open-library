@@ -6,3 +6,7 @@
 .lang {
     margin-left: 20px;
 }
+
+a.row-active {
+    background-color: #FFFFFF22;
+}

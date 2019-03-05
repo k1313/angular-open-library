@@ -20,7 +20,7 @@ export class AppComponent implements OnInit, OnDestroy {
   bigPanel = window.innerWidth > 900;
 
   navLinks = [
-    { path: "/", label: "APP.HOME" },
+    { path: "/search", label: "APP.HOME" },
     { path: "/favourites", label: "APP.FAVOURITES" }
   ];
   menuCollapsed: boolean = true;
