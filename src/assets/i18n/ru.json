@@ -1,7 +1,7 @@
 {
     "APP": {
         "TITLE": "OpenLibrary",
-        "HOME" : "Домой",
+        "HOME" : "Поиск",
         "FAVOURITES": "Избранное"
     },
     "SEARCH": {
