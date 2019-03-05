@@ -1,12 +1,25 @@
-/* .app-header {
-    flex: 1;
+.small-menu {
+    max-height: 0px;
+    visibility: hidden;
+    transition-property: max-height visibility;
+    transition-duration: 0.5s;
 }
 
-.app-content {
-    flex: 100;
-    flex-grow: 1;
-    display: flex;
-    min-height: 10vh;
-    flex-direction: column;
-    overflow-y: auto;
-} */
+.small-menu.visible {
+    max-height: 100vh;
+    visibility: visible;
+    transition-property: max-height visibility;
+    transition-duration: 0.5s;
+}
+
+.small-menu .lang {
+    visibility: hidden;
+}
+
+.small-menu.visible .lang {
+    visibility: visible;
+}
+
+.lang {
+    margin-left: 20px;
+}

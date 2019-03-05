@@ -15,7 +15,7 @@
     <a mat-button *ngFor="let link of navLinks" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
       [attr.active]="rla.isActive">{{link.label | translate}}</a>
     <span style="flex-grow: 1"></span>
-    <ng-container [ngTemplateOutlet]="flags"></ng-container>
+    <ng-container [ngTemplateOutlet]="lang"></ng-container>
   </mat-toolbar>
 </ng-template>
 
@@ -23,20 +23,20 @@
 <ng-template #tmplSmallPanel>
   <mat-toolbar color="primary">
     <ng-container>
-        <mat-toolbar-row>
-            <a mat-button routerLink="/">
-              <mat-icon>home</mat-icon>{{ 'APP.TITLE' | translate}}
-            </a>
-            <span style="flex: 1 1 auto"></span>
-            <button mat-icon-button (click)="toggleMenu()">
-              <mat-icon>menu</mat-icon>
-            </button>
-          </mat-toolbar-row>
+      <mat-toolbar-row>
+        <a mat-button routerLink="/">
+          <mat-icon>home</mat-icon>{{ 'APP.TITLE' | translate}}
+        </a>
+        <span style="flex: 1 1 auto"></span>
+        <button mat-icon-button (click)="toggleMenu()">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </mat-toolbar-row>
     </ng-container>
-    <ng-container>
-        <ng-container *ngIf="!menuCollapsed; then expandedMenu"></ng-container>
-      </ng-container>
-    
+    <div class="small-menu" [ngClass]="{'visible' : !menuCollapsed}">
+      <ng-container [ngTemplateOutlet]="expandedMenu"></ng-container>
+    </div>
+
   </mat-toolbar>
 </ng-template>
 
@@ -48,15 +48,18 @@
       [attr.active]="rla.isActive">{{link.label | translate}}</a>
   </mat-toolbar-row>
   <mat-toolbar-row>
-    <ng-container [ngTemplateOutlet]="flags"></ng-container>
+    <ng-container [ngTemplateOutlet]="lang"></ng-container>
   </mat-toolbar-row>
+ 
 </ng-template>
 
 <!-- flags -->
-<ng-template #flags>
-  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAgFAAEQCggAOw==" class="flag flag-ru"
-    alt="Russian" (click)="setLang('ru')" />
-  &nbsp;
-  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAgFAAEQCggAOw==" class="flag flag-us"
-    alt="English" (click)="setLang('en')" />
+<ng-template #lang>
+  <span class="lang">
+    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAgFAAEQCggAOw=="
+      class="flag flag-ru" alt="Russian" (click)="setLang('ru')" />
+    &nbsp;
+    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAgFAAEQCggAOw=="
+      class="flag flag-us" alt="English" (click)="setLang('en')" />
+  </span>
 </ng-template>
