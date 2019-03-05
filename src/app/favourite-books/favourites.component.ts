@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FavouriteBook, allTags, search } from '../tags';
 
+
 @Component({
   selector: 'app-favourites',
   templateUrl: './favourites.component.html',
@@ -12,12 +13,27 @@ export class FavouritesComponent implements OnInit {
   allTags : string[] = allTags();
   tags : Tag[] = [];
   founded: FavouriteBook[] = [];
+  allSelected = this._allSelected();
+  
+  private _allSelected() : boolean {
+
+    return (this.tagsSelected.length == this.allTags.length) && this.tagsSelected.length > 0;
+  }
+
+  toggleAll() : void {
+    if (this.allSelected) {
+      this.tagsSelected = [];
+    } else {
+      this.tagsSelected = allTags();
+    }
+    this.allSelected = this._allSelected();
+    this.update();
+    this.updateTags();
+    
+  }
 
   constructor(public translate: TranslateService) { }
 
-  tagSelected(tag: string) {
-    return this.tagsSelected.indexOf(tag) > -1;
-  }
 
   ngOnInit() {
     this.tagsSelected = JSON.parse(localStorage.getItem('selected-tags')) || [];
@@ -41,10 +57,15 @@ export class FavouritesComponent implements OnInit {
       } else {
         this.tagsSelected.push(tag);
       }
-      this.founded = search(this.tagsSelected);
-      localStorage.setItem('selected-tags', JSON.stringify(this.tagsSelected));
+      this.update();
       this.updateTags();
     }
+
+  private update() {
+    this.founded = search(this.tagsSelected);
+    localStorage.setItem('selected-tags', JSON.stringify(this.tagsSelected));
+    this.allSelected = this._allSelected();
+  }
 }
 
 interface Tag {

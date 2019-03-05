@@ -32,6 +32,7 @@
     },
     "FAV": {
         "SELECT_SOME_TAGS": "Select Some Tags!!!",
-        "TAGS" : "Tags"
+        "TAGS" : "Tags",
+        "ALL" : "All"
     }
 }
