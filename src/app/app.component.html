@@ -55,9 +55,9 @@
 <ng-template #lang>
   <span class="lang">
     <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAgFAAEQCggAOw=="
-      class="flag flag-ru" alt="Russian" (click)="setLang('ru')" />
+      class="flag flag-ru" alt="Russian" (click)="setLang('ru'); close();" />
     &nbsp;
     <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAgFAAEQCggAOw=="
-      class="flag flag-us" alt="English" (click)="setLang('en')" />
+      class="flag flag-us" alt="English" (click)="setLang('en'); close();" />
   </span>
 </ng-template>

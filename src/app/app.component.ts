@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { menuItemAnim} from './animations';
+import { Observable, Subscription } from 'rxjs';
+import { menuItemAnim } from './animations';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 
 
@@ -10,9 +12,9 @@ import { menuItemAnim} from './animations';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  animations: [ menuItemAnim ]
+  animations: [menuItemAnim]
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'books-app';
   layoutChanges: Observable<BreakpointState>;
   bigPanel = window.innerWidth > 900;
@@ -22,13 +24,16 @@ export class AppComponent {
     { path: "/favourites", label: "APP.FAVOURITES" }
   ];
   menuCollapsed: boolean = true;
+  subscriptions: Subscription;
 
-  constructor(public translate: TranslateService, private breakpointObserver: BreakpointObserver) {
+  constructor(
+    public translate: TranslateService,
+    private breakpointObserver: BreakpointObserver,
+    private router: Router
+  ) {
     translate.addLangs(['en', 'ru']);
     console.log('language', localStorage.getItem('language'));
     translate.setDefaultLang('en');
-
-    // the lang to use, if the lang isn't available, it will use the current loader to get them
     translate.use(localStorage.getItem('language') || 'en');
 
     this.layoutChanges = breakpointObserver.observe([
@@ -41,8 +46,19 @@ export class AppComponent {
         this.menuCollapsed = true;
       }
     });
+  }
 
+  ngOnInit() {
+    let navEnd = this.router.events.pipe( filter(e => e instanceof NavigationEnd)) as Observable<NavigationEnd>;
+    this.subscriptions = navEnd.subscribe(_ => this.close());
+  }
 
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+  }
+
+  close(): void {
+    this.menuCollapsed = true;
   }
 
   toggleMenu(): void {
