@@ -33,24 +33,22 @@
         </button>
       </mat-toolbar-row>
     </ng-container>
-    <div class="small-menu" [ngClass]="{'visible' : !menuCollapsed}">
+    <ng-container *ngIf="!menuCollapsed">
       <ng-container [ngTemplateOutlet]="expandedMenu"></ng-container>
-    </div>
-
+    </ng-container>
   </mat-toolbar>
 </ng-template>
 
 
 <!-- menu expanded -->
 <ng-template #expandedMenu>
-  <mat-toolbar-row *ngFor="let link of navLinks">
+  <mat-toolbar-row *ngFor="let link of navLinks" class="row-visible">
     <a mat-button [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
       [attr.active]="rla.isActive">{{link.label | translate}}</a>
   </mat-toolbar-row>
-  <mat-toolbar-row>
+  <mat-toolbar-row class="row-visible">
     <ng-container [ngTemplateOutlet]="lang"></ng-container>
   </mat-toolbar-row>
- 
 </ng-template>
 
 <!-- flags -->
