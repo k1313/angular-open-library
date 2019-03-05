@@ -1,42 +1,6 @@
-.small-menu {
-    max-height: 0px;
-    visibility: hidden;
-    transition-property: max-height visibility;
-    transition-duration: 0.5s;
-}
-
-.small-menu.visible {
-    max-height: 100vh;
-    visibility: visible;
-    transition-property: max-height visibility;
-    transition-duration: 0.5s;
-}
-
-
-@keyframes test {
-    from {
-        opacity: -1;
-        transform: translateX(50vw);
-        max-height: 0;
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0px);
-        max-height: 10vh;
-    }
-}
 
 .row-visible {
-    animation: test 0.25s linear;
     margin-left: 25px;
-}
-
-.small-menu .lang {
-    visibility: hidden;
-}
-
-.small-menu.visible .lang {
-    visibility: visible;
 }
 
 .lang {
