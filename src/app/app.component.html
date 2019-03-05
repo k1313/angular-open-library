@@ -12,8 +12,8 @@
     <a mat-button routerLink="/">
       <mat-icon>home</mat-icon>{{ 'APP.TITLE' | translate}}
     </a>
-    <a mat-button *ngFor="let link of navLinks" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
-      [attr.active]="rla.isActive">{{link.label | translate}}</a>
+    <a mat-button *ngFor="let link of navLinks" routerLinkActive #rla="routerLinkActive" [routerLink]="link.path"
+      [ngClass]="{'row-active': rla.isActive}">{{link.label | translate}}</a>
     <span style="flex-grow: 1"></span>
     <ng-container [ngTemplateOutlet]="lang"></ng-container>
   </mat-toolbar>
@@ -42,7 +42,7 @@
 
 <!-- menu expanded -->
 <ng-template #expandedMenu>
-  <mat-toolbar-row @menuItem *ngFor="let link of navLinks"  routerLinkActive #rla="routerLinkActive" class="row-visible">
+  <mat-toolbar-row @menuItem *ngFor="let link of navLinks" routerLinkActive #rla="routerLinkActive" class="row-visible">
     <a mat-button [routerLink]="link.path" [ngClass]="{'row-active': rla.isActive}">{{link.label | translate}}</a>
   </mat-toolbar-row>
   <mat-toolbar-row @menuItem class="row-visible">
