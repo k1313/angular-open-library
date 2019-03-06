@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { FavouriteBook, allTags, search } from '../tags';
+import {Component, OnInit} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+import {allTags, FavouriteBook, search} from '../tags';
 
 
 @Component({
@@ -10,17 +10,15 @@ import { FavouriteBook, allTags, search } from '../tags';
 })
 export class FavouritesComponent implements OnInit {
   tagsSelected: string[] = [];
-  allTags : string[] = allTags();
-  tags : Tag[] = [];
+  allTags: string[] = allTags();
+  tags: Tag[] = [];
   founded: FavouriteBook[] = [];
   allSelected = this._allSelected();
-  
-  private _allSelected() : boolean {
 
-    return (this.tagsSelected.length == this.allTags.length) && this.tagsSelected.length > 0;
+  constructor(public translate: TranslateService) {
   }
 
-  toggleAll() : void {
+  toggleAll(): void {
     if (this.allSelected) {
       this.tagsSelected = [];
     } else {
@@ -29,11 +27,8 @@ export class FavouritesComponent implements OnInit {
     this.allSelected = this._allSelected();
     this.update();
     this.updateTags();
-    
+
   }
-
-  constructor(public translate: TranslateService) { }
-
 
   ngOnInit() {
     this.tagsSelected = JSON.parse(localStorage.getItem('selected-tags')) || [];
@@ -41,25 +36,30 @@ export class FavouritesComponent implements OnInit {
     this.updateTags();
   }
 
-  updateTags() : void {
-    this.tags = this.allTags.map( x => {
+  updateTags(): void {
+    this.tags = this.allTags.map(x => {
       return {
         selected: this.tagsSelected.indexOf(x) > -1,
         name: x
-      }
+      };
     });
   }
 
-  toggleTag(tag: string) : void {
-      let idx = this.tagsSelected.indexOf(tag);
-      if (idx > -1) {
-        this.tagsSelected = this.tagsSelected.filter(x => x !== tag);
-      } else {
-        this.tagsSelected.push(tag);
-      }
-      this.update();
-      this.updateTags();
+  toggleTag(tag: string): void {
+    const idx = this.tagsSelected.indexOf(tag);
+    if (idx > -1) {
+      this.tagsSelected = this.tagsSelected.filter(x => x !== tag);
+    } else {
+      this.tagsSelected.push(tag);
     }
+    this.update();
+    this.updateTags();
+  }
+
+  private _allSelected(): boolean {
+
+    return (this.tagsSelected.length === this.allTags.length) && this.tagsSelected.length > 0;
+  }
 
   private update() {
     this.founded = search(this.tagsSelected);

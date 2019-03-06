@@ -103,10 +103,10 @@ export interface OpenLibraryBookDetails {
 }
 
 export class OpenLibraryBookDetailsWrapper {
-  private readonly _wrapped: OpenLibraryBookDetails;
+  private readonly wrapped: OpenLibraryBookDetails;
 
   constructor(wrapped: OpenLibraryBookDetails) {
-    this._wrapped = wrapped;
+    this.wrapped = wrapped;
 
   }
 
@@ -118,7 +118,7 @@ export class OpenLibraryBookDetailsWrapper {
   }
 
   get obj(): OpenLibraryBookDetails {
-    return this._wrapped;
+    return this.wrapped;
   }
 
   get isbn10(): string | null {
