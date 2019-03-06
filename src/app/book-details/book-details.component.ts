@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {ENTER} from '@angular/cdk/keycodes';
-import {ActivatedRoute} from '@angular/router';
-import {OpenLibraryAPIService} from '../open-library-api.service';
-import {OpenLibraryBookDetailsWrapper} from '../open-library-book';
-import {MatChipInputEvent} from '@angular/material';
-import {TranslateService} from '@ngx-translate/core';
-import {getTags, saveTags} from '../tags';
+import { ENTER } from '@angular/cdk/keycodes';
+import { Component, OnInit } from '@angular/core';
+import { MatChipInputEvent } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { OpenLibraryAPIService } from '../open-library-api.service';
+import { OpenLibraryBookDetailsWrapper } from '../open-library-book';
+import { getTags, saveTags } from '../tags';
 
 @Component({
   selector: 'app-book-details',

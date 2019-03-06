@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
-import {allTags, FavouriteBook, search} from '../tags';
+import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { allTags, FavouriteBook, search } from '../tags';
 
 
 @Component({
@@ -57,7 +57,6 @@ export class FavouritesComponent implements OnInit {
   }
 
   private _allSelected(): boolean {
-
     return (this.tagsSelected.length === this.allTags.length) && this.tagsSelected.length > 0;
   }
 

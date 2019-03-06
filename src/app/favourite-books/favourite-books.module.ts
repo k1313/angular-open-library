@@ -1,9 +1,9 @@
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from '../shared/shared.module';
+import { FavouriteBooksRoutingModule } from './favourite-books-routing.module';
+import { FavouritesComponent } from './favourites.component';
 
-import {SharedModule} from '../shared/shared.module';
-import {FavouriteBooksRoutingModule} from './favourite-books-routing.module';
-import {FavouritesComponent} from './favourites.component';
-import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
   declarations: [FavouritesComponent],
