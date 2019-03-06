@@ -9,17 +9,17 @@ import { BookSearchComponent } from './book-search.component';
 export class SearchRedirectGuard implements CanActivate {
   constructor(private router: Router) { }
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    let q = next.params.query || '';
-    let resultPerPage = +localStorage.getItem('booksPerPage') || 10;
+    const q = next.params.query || '';
+    const resultPerPage = +localStorage.getItem('booksPerPage') || 10;
     this.router.navigateByUrl(`/search/${q}/1/${resultPerPage}`);
     return false;
   }
 }
 
 export const routes: Routes = [
-  { 'path': '', component: BookSearchComponent },
-  { 'path': ':query', 'canActivate' : [SearchRedirectGuard] },
-  { 'path': ':query/:page/:limit', component: BookSearchComponent }
+  { path: '', component: BookSearchComponent },
+  { path: ':query', canActivate : [SearchRedirectGuard] },
+  { path: ':query/:page/:limit', component: BookSearchComponent }
 ];
 
 @NgModule({

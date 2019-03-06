@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { ENTER } from '@angular/cdk/keycodes';
-import { ActivatedRoute } from '@angular/router';
-import { OpenLibraryAPIService } from '../open-library-api.service';
-import { OpenLibraryBookDetailsWrapper } from '../open-library-book';
-import { MatChipInputEvent } from '@angular/material';
-import { TranslateService } from '@ngx-translate/core';
-import { getTags, saveTags } from '../tags';
+import {Component, OnInit} from '@angular/core';
+import {ENTER} from '@angular/cdk/keycodes';
+import {ActivatedRoute} from '@angular/router';
+import {OpenLibraryAPIService} from '../open-library-api.service';
+import {OpenLibraryBookDetailsWrapper} from '../open-library-book';
+import {MatChipInputEvent} from '@angular/material';
+import {TranslateService} from '@ngx-translate/core';
+import {getTags, saveTags} from '../tags';
 
 @Component({
   selector: 'app-book-details',
@@ -14,22 +14,21 @@ import { getTags, saveTags } from '../tags';
 })
 export class BookDetailsComponent implements OnInit {
 
-  bookId: string = ''
+  bookId = '';
   bookDetails: OpenLibraryBookDetailsWrapper;
-
-  //tags
   tags: string[] = [];
   readonly separatorKeysCodes: number[] = [ENTER];
 
   constructor(
     private route: ActivatedRoute,
     private api: OpenLibraryAPIService,
-    private translate: TranslateService
-  ) { }
+    public translate: TranslateService
+  ) {
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.bookId = params['id'] || '';
+      this.bookId = params.id || '';
       if (this.bookId) {
         this.api.bookDetails(this.bookId).subscribe(x => {
           this.bookDetails = x;

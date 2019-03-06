@@ -12,14 +12,14 @@ export class MatPaginationIntlService extends MatPaginatorIntl {
     previousPageLabel = 'Previous page';
     of = 'of';
 
-    constructor(private translate: TranslateService) { 
+    constructor(private translate: TranslateService) {
         super();
         this.translate.onLangChange.subscribe( e => this.translateLabels(e.translations) );
         this.translateLabels(this.translate.translations[this.translate.currentLang]);
     }
 
     getRangeLabel = (page: number, pageSize: number, length: number): string => {
-        
+
         if (length === 0 || pageSize === 0) {
             return `0 ${this.of} ${length}`;
         }

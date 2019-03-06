@@ -10,10 +10,11 @@
 <ng-template #tmplBigPanel>
   <mat-toolbar color="primary">
     <a mat-button routerLink="/">
-      <mat-icon>home</mat-icon>{{ 'APP.TITLE' | translate}}
+      <mat-icon>home</mat-icon>
+      {{ 'APP.TITLE' | translate}}
     </a>
     <a mat-button *ngFor="let link of navLinks" routerLinkActive #rla="routerLinkActive" [routerLink]="link.path"
-      [ngClass]="{'row-active': rla.isActive}">{{link.label | translate}}</a>
+       [ngClass]="{'row-active': rla.isActive}">{{link.label | translate}}</a>
     <span style="flex-grow: 1"></span>
     <ng-container [ngTemplateOutlet]="lang"></ng-container>
   </mat-toolbar>
@@ -25,7 +26,8 @@
     <ng-container>
       <mat-toolbar-row>
         <a mat-button routerLink="/">
-          <mat-icon>home</mat-icon>{{ 'APP.TITLE' | translate}}
+          <mat-icon>home</mat-icon>
+          {{ 'APP.TITLE' | translate}}
         </a>
         <span style="flex: 1 1 auto"></span>
         <button mat-icon-button (click)="toggleMenu()">
@@ -54,9 +56,9 @@
 <ng-template #lang>
   <span class="lang">
     <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAgFAAEQCggAOw=="
-      class="flag flag-ru" alt="Russian" (click)="setLang('ru'); close();" />
+         class="flag flag-ru" alt="Russian" (click)="setLang('ru'); close();"/>
     &nbsp;
     <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAgFAAEQCggAOw=="
-      class="flag flag-us" alt="English" (click)="setLang('en'); close();" />
+         class="flag flag-us" alt="English" (click)="setLang('en'); close();"/>
   </span>
 </ng-template>

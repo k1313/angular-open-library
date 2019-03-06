@@ -8,9 +8,9 @@
   <ng-container *ngIf="founded.length > 0; else selectTags">
     <p *ngFor="let book of founded"><a routerLink="/book/{{book.id}}">{{book.title}}</a>
       (
-        <ng-container *ngFor="let t of book.tags; last as last">
-            <span>{{t}}</span><span *ngIf="!last">, </span>
-        </ng-container>
+      <ng-container *ngFor="let t of book.tags; last as last">
+        <span>{{t}}</span><span *ngIf="!last">, </span>
+      </ng-container>
       )
     </p>
   </ng-container>

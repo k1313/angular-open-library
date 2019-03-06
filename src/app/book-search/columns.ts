@@ -1,7 +1,7 @@
 export interface ColumnData {
-    key: string,
-    name: string,
-    enabled: boolean
+    key: string;
+    name: string;
+    enabled: boolean;
 }
 
 const storageKey = 'BookSearchTableColumns';
@@ -19,25 +19,25 @@ const columns: ColumnData[] = [
 const save = (data: ColumnData[]) => {
     console.log('saved columns:', data);
     localStorage.setItem(storageKey, JSON.stringify(data));
-}
+};
 
-export const getColumns = () : ColumnData[] => {
-    let s = localStorage.getItem(storageKey);
+export const getColumns = (): ColumnData[] => {
+    const s = localStorage.getItem(storageKey);
     if (!s) {
         save(columns);
         return columns;
     } else {
-        let saved: ColumnData[] = JSON.parse(s);
-        return columns.map( x => {
-            let m = saved.find(s => s.key === x.key);
-            return m ? {...x, ...m} : x;
-        })
+        const saved: ColumnData[] = JSON.parse(s);
+        return columns.map( column => {
+            const m = saved.find(savedColumn => savedColumn.key === column.key);
+            return m ? {...column, ...m} : column;
+        });
     }
 };
 
 
-export const updateColumns = (enabled: string[]) : ColumnData[] => {
-    let res = columns.map( c => {
+export const updateColumns = (enabled: string[]): ColumnData[] => {
+    const res = columns.map( c => {
         c.enabled = enabled.find(x => x === c.key) ? true : false;
         return c;
     });
