@@ -30,7 +30,7 @@ export class MatPaginationIntlService extends MatPaginatorIntl {
 
         const endIndex = Math.min(startIndex + pageSize, length);
         return `${startIndex + 1}  -  ${endIndex} ${this.of} ${length}`;
-    };
+    }
 
     private translateLabels(translations: any) {
         console.log('tl', translations);

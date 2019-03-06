@@ -27,8 +27,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     public translate: TranslateService,
-    private breakpointObserver: BreakpointObserver,
-    private router: Router
+    private router: Router,
+    breakpointObserver: BreakpointObserver,
   ) {
     translate.addLangs(['en', 'ru']);
     console.log('language', localStorage.getItem('language'));

@@ -1,27 +1,26 @@
+import { LayoutModule } from '@angular/cdk/layout';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { MatPaginationIntlService } from './paginator-i18';
-import { LayoutModule } from '@angular/cdk/layout';
-
 import {
   MatButtonModule,
   MatCardModule,
   MatChipsModule,
+  MatExpansionModule,
+  MatFormFieldModule,
   MatIconModule,
   MatInputModule,
   MatMenuModule,
+  MatPaginatorIntl,
   MatPaginatorModule,
   MatProgressSpinnerModule,
   MatRippleModule,
+  MatSelectModule,
   MatTableModule,
   MatToolbarModule,
-  MatTooltipModule,
-  MatFormFieldModule,
-  MatSelectModule,
-  MatPaginatorIntl,
-  MatExpansionModule,
+  MatTooltipModule
 } from '@angular/material';
+import { MatPaginationIntlService } from './paginator-i18';
 
 
 @NgModule({

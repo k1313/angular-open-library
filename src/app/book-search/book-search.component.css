@@ -2,12 +2,6 @@
     width: 100%;
   }
 
-  .table-container {
-    /* display: flex;
-    flex: 1;
-    overflow: auto; */
-  }
-  
   tr.mat-row.ng-star-inserted {
     cursor: pointer;
   }

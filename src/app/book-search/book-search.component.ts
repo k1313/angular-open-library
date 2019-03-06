@@ -42,9 +42,9 @@ export class BookSearchComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.query = params['query'] || '';
-      this.page = +params['page'] - 1 || 0;
-      this.pageSize = +params['limit'] || +localStorage.getItem('booksPerPage') || 10;
+      this.query = params.query || '';
+      this.page = +params.page - 1 || 0;
+      this.pageSize = +params.limit || +localStorage.getItem('booksPerPage') || 10;
     });
 
     this.columnsFormControl.setValue(this.displayedColumns);

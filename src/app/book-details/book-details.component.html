@@ -40,7 +40,7 @@
             <mat-icon matChipRemove>cancel</mat-icon>
           </mat-chip>
           <input placeholder="{{ 'DETAILS.ADD_TAG' | translate }}" [matChipInputFor]="chipList"
-                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true"
                  (matChipInputTokenEnd)="add($event)">
         </mat-chip-list>
       </mat-form-field>

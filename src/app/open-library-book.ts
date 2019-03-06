@@ -26,45 +26,6 @@ export interface OpenLibrarySearchResponse {
   docs: OpenLibraryBook[];
 }
 
-export class OpenLibrarySearchResponseWrapper {
-  start = 0;
-  numFound = 0;
-  docs: OpenLibraryBookWrapper[] = [];
-
-  readonly subjects: string[];
-
-  constructor(obj?: OpenLibrarySearchResponse) {
-    if (obj) {
-      this.start = obj.start;
-      this.numFound = obj.numFound;
-      this.docs = obj.docs.map(x => new OpenLibraryBookWrapper(x));
-      this.subjects = getSubjects(this.docs);
-    }
-  }
-
-}
-
-function getSubjects(docs: OpenLibraryBookWrapper[]) {
-  const tmp = docs
-    .reduce((p, v) => [...p, ...v.obj.subject], [])
-    .filter(x => !!x);
-  return Array.from(new Set(tmp)).sort();
-}
-
-function getCovers(obj: OpenLibraryBook) {
-  let key = '';
-  if (obj.cover_i) {
-    key = obj.cover_i.toString();
-  } else if (obj.isbn) {
-    key = obj.isbn[0];
-  }
-  return {
-    small: `https://covers.openlibrary.org/b/id/${key}-S.jpg`,
-    medium: `https://covers.openlibrary.org/b/id/${key}-M.jpg`,
-    large: `https://covers.openlibrary.org/b/id/${key}-L.jpg`,
-  };
-}
-
 export class OpenLibraryBookWrapper {
   private readonly wrapped: OpenLibraryBook;
   readonly covers: BookCoverURLs;
@@ -86,6 +47,27 @@ export class OpenLibraryBookWrapper {
     return s[s.length - 1];
   }
 }
+
+
+export class OpenLibrarySearchResponseWrapper {
+  start = 0;
+  numFound = 0;
+  docs: OpenLibraryBookWrapper[] = [];
+
+  readonly subjects: string[];
+
+  constructor(obj?: OpenLibrarySearchResponse) {
+    if (obj) {
+      this.start = obj.start;
+      this.numFound = obj.numFound;
+      this.docs = obj.docs.map(x => new OpenLibraryBookWrapper(x));
+      this.subjects = getSubjects(this.docs);
+    }
+  }
+
+}
+
+
 
 export interface OpenLibraryBookDetails {
   title: string;
@@ -159,6 +141,25 @@ export class OpenLibraryBookDetailsWrapper {
 }
 
 
+function getSubjects(docs: OpenLibraryBookWrapper[]) {
+  const tmp = docs
+    .reduce((p, v) => [...p, ...v.obj.subject], [])
+    .filter(x => !!x);
+  return Array.from(new Set(tmp)).sort();
+}
 
 
+function getCovers(obj: OpenLibraryBook) {
+  let key = '';
+  if (obj.cover_i) {
+    key = obj.cover_i.toString();
+  } else if (obj.isbn) {
+    key = obj.isbn[0];
+  }
+  return {
+    small: `https://covers.openlibrary.org/b/id/${key}-S.jpg`,
+    medium: `https://covers.openlibrary.org/b/id/${key}-M.jpg`,
+    large: `https://covers.openlibrary.org/b/id/${key}-L.jpg`,
+  };
+}
 
